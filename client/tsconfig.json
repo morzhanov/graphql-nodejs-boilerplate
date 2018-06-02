@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es6",
+    "moduleResolution": "node",
+    "declaration": false,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "jsx": "react",
+    "noLib": false,
+    "lib": [
+      "esnext.asynciterable"
+    ],
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "compileOnSave": false,
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src/*"
+  ]
+}

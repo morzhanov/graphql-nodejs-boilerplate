@@ -1,1 +1,1 @@
-# graph-ql-instagram
+# graphql-node-react-boilerplate
