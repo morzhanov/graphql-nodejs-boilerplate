@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "GraphQL application boilerplate with React, NodeJS and Typescript support. (Client part)",
   "scripts": {
-    "start": "webpack-dev-server --config src/client/webpack.config.js  --mode development --inline --hot"
+    "start": "webpack-dev-server --mode development --inline --hot"
   },
   "repository": {
     "type": "git",
