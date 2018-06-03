@@ -1,16 +1,15 @@
+global.Promise = require('bluebird');
 import 'reflect-metadata';
 import {Application} from "express";
+import db from './db';
+import api from './routers';
+import {API_URI} from './constants';
 
-global.Promise = require('bluebird');
-// todo try to change to default export
-export const app: Application = require('express')();
+const app: Application = require('express')();
 const express_graphql = require('express-graphql');
-const { buildSchema } = require('graphql');
+const {buildSchema} = require('graphql');
 const cors = require('cors');
 const {json, urlencoded} = require('body-parser');
-const {API_URI} = require('./constants');
-const db = require('./db');
-const api = require('./routers');
 
 app.set('db', db);
 
@@ -96,3 +95,5 @@ app.use('/', express_graphql({
   rootValue: root,
   graphiql: true
 }));
+
+export default app

@@ -2,7 +2,7 @@ import {NextFunction, Request, Response} from "express";
 
 const {SC} = require('../constants');
 
-module.exports = {
+export default {
 
   /**
    * Endpoint to check is server alive

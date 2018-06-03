@@ -1,18 +1,20 @@
 const {Router} = require('express');
 
-const Generic = require('../controllers/generic');
-const ErrorHandler = require('../middleware/error-handler');
-const NotFound = require('../middleware/not-found');
+import controllers from '../controllers';
+import middleware from '../middleware';
+
+const {errorHandler, notFound} = middleware;
+const {generic} = controllers;
 
 const router = new Router();
 
 router
-  .get('/health-check', Generic.healthCheck)
-  .get('/generic', Generic.genericGET)
-  .post('/generic', Generic.genericPOST)
-  .put('/generic', Generic.genericPUT)
-  .delete('/generic', Generic.genericDELETE)
-  .use(ErrorHandler())
-  .use(NotFound('Not Found'));
+  .get('/health-check', generic.healthCheck)
+  .get('/generic', generic.genericGET)
+  .post('/generic', generic.genericPOST)
+  .put('/generic', generic.genericPUT)
+  .delete('/generic', generic.genericDELETE)
+  .use(errorHandler())
+  .use(notFound('Not Found'));
 
-module.exports = router;
+export default router;

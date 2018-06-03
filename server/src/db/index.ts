@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
+import config from './config';
 const {Client} = require('pg');
-const config = require('./config');
 
 const client = new Client(config);
 
@@ -18,4 +16,4 @@ client.on('notice', (msg: string) => console.warn('notice:', msg));
 
 client.connect();
 
-module.exports = client;
+export default client;

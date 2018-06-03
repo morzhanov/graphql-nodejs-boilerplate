@@ -8,7 +8,7 @@ import {NextFunction, Response} from "express";
  * @param res - response object
  * @param next - next middleware
  */
-module.exports = function (req: any, res: Response, next: NextFunction) {
+export default (req: any, res: Response, next: NextFunction) => {
   const token: string = req.headers['x-token'];
 
   console.log('token = ' + token);

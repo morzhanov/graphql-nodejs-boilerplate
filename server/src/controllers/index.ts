@@ -1,3 +1,5 @@
-module.exports = {
-  Generic: require('./generic')
+import generic from './generic'
+
+export default {
+  generic
 };

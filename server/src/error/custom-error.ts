@@ -5,7 +5,7 @@ import {EC, SC} from '../constants';
  * @param message - error message
  * @param ec - error code
  */
-module.exports = function CustomError(message: string, ec: number) {
+function CustomError(message: string, ec: number) {
   let status;
 
   // parse error code and generate status code
@@ -34,6 +34,8 @@ module.exports = function CustomError(message: string, ec: number) {
   this.message = message;
   this.error_code = ec || EC.SERVER_ERROR;
   this.status = status || SC.SERVER_ERROR;
-};
+}
 
 require('util').inherits(module.exports, Error);
+
+export default CustomError

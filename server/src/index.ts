@@ -4,9 +4,9 @@ import Signals = NodeJS.Signals;
 import {PORT} from './constants';
 import {NextFunction} from "express";
 import ErrnoException = NodeJS.ErrnoException;
-
-import {app} from'./app';
+import app from './app';
 import {Server} from "http";
+
 const signals = ['SIGINT', 'SIGTERM'];
 const db = app.get('db');
 // create https server

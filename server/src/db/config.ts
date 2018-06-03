@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   host: 'ec2-50-19-232-205.compute-1.amazonaws.com',
   database: 'd42jrvlcaduhd2',
   user: 'mywmilnvbrgclh',

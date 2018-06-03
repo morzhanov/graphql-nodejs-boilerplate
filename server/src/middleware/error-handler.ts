@@ -1,11 +1,11 @@
-import {EC, SC} from '../constants/index';
+import {EC, SC} from '../constants';
 import {NextFunction, Request, Response} from "express";
 
 /**
  * Application error handler
  * @return {Function} middleware
  */
-function errorHandler() {
+export default () => {
   return (e: any, request: Request, response: Response, next: NextFunction) => {
     return response.status(e.status || SC.SERVER_ERROR)
       .json({
@@ -15,5 +15,3 @@ function errorHandler() {
       });
   };
 }
-
-module.exports = errorHandler;

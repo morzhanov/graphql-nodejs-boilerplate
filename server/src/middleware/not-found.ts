@@ -5,8 +5,6 @@
  */
 import {Response} from "express";
 
-function notFound(message: any) {
+export default (message: any) => {
   return (_: any, response: Response) => response.status(404).json(message);
 }
-
-module.exports = notFound;
