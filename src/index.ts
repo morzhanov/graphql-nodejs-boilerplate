@@ -52,7 +52,6 @@ function closeServer(next: NextFunction) {
  */
 function closeDbConnection(next: NextFunction) {
   console.log('Now db will be closed!');
-  db.close(next);
 }
 
 /**

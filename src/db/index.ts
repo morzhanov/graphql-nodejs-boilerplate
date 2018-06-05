@@ -1,19 +1,17 @@
-import config from './config';
-const {Client} = require('pg');
+import {createConnection} from 'typeorm';
+import {User} from "../entities/user.entity";
 
-const client = new Client(config);
-
-client.on('error', (err: Error) => {
-  console.error('something bad has happened!', err.stack);
-});
-
-client.on('notification', (msg: any) => {
-  console.log(msg.channel);
-  console.log(msg.payload);
-});
-
-client.on('notice', (msg: string) => console.warn('notice:', msg));
-
-client.connect();
-
-export default client;
+export default {
+    provide: 'DbConnectionToken',
+    useFactory: async () => await createConnection({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'admin',
+      password: 'admin',
+      entities: [
+        User
+      ],
+      synchronize: true
+    }),
+  };
