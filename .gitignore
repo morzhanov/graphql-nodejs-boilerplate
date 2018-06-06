@@ -5,3 +5,4 @@ build/
 node_modules/
 dist/
 .idea/
+src/db/config.ts
