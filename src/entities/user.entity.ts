@@ -6,20 +6,11 @@ export class User {
   id: string;
 
   @Column()
-  title: string;
+  username: string;
 
   @Column()
-  body: string;
+  email: string;
 
   @Column()
-  authorId: string;
-
-  @Column()
-  categoryId: string;
-
-  @Column()
-  created_at: Date;
-
-  @Column()
-  cheers: number;
+  password: string;
 }

@@ -1,7 +1,7 @@
 global.Promise = require('bluebird');
 import 'reflect-metadata';
 import {Application} from "express";
-import db from './db';
+import connectDatabase from './db';
 import api from './routers';
 import {API_URI} from './constants';
 
@@ -11,7 +11,11 @@ const {buildSchema} = require('graphql');
 const cors = require('cors');
 const {json, urlencoded} = require('body-parser');
 
-app.set('db', db);
+connectDatabase().then(connection => {
+  console.log(`Database connected`);
+  console.log(connection.options);
+  app.set('db', connection);
+});
 
 if (app.get('env') !== 'development') {
   const logger = require('morgan');

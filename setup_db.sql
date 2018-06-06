@@ -1,37 +1,12 @@
-DROP DATABASE IF EXISTS graphql_boilerplate;
-CREATE DATABASE graphql_boilerplate;
-
-\c graphql_boilerplate;
-
-CREATE TABLE posts (
-  id         INTEGER PRIMARY KEY,
-  title      TEXT
-);
-
-CREATE TABLE comments (
-  id         SERIAL PRIMARY KEY,
-  post_id    INTEGER,
-  user_id    INTEGER,
-  text       TEXT
-);
-
 CREATE TABLE users (
   id         INTEGER PRIMARY KEY,
-  username   TEXT
+  username   TEXT,
+  email   TEXT,
+  password   TEXT
 );
 
 INSERT INTO users (id, username)
-  VALUES (1, 'heisenberg'),
-         (2, 'kelvin'),
-         (3, 'frog man');
-
-INSERT INTO posts (id, title)
-  VALUES (1, 'One easy trick to learn graphql'),
-         (2, '10 ways to shock your friends with ReactJS');
-
-INSERT INTO comments (post_id, user_id, text)
-  VALUES (1, 3, 'are you the illuminati'),
-         (1, 2, 'you have been coaxed into a snafu'),
-         (1, 3, 'is this web scale?'),
-         (2, 1, 'pranked by the tricky trickster'),
-         (2, 2, 'you just got tricked!');
+  VALUES (1, 'example user 1', 'email1@mail.com', 'admin'),
+         (2, 'example user 2', 'email2@mail.com', 'admin'),
+         (3, 'example user 3', 'email3@mail.com', 'admin');
+         
