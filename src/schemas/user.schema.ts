@@ -9,14 +9,14 @@ const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
-  GraphQLSchema
+  GraphQLSchema,
+  GraphQLList
 } = graphql;
 
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     id: {type: GraphQLID},
-    username: {type: GraphQLString},
     email: {type: GraphQLString},
     password: {type: GraphQLString}
   })
@@ -26,10 +26,11 @@ const UsersQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     users: {
-      type: UserType,
-      args: {id: {type: GraphQLID}},
-      resolve(parentValue: any, args: any) {
-        return connection.manager.getRepository(User).find(args.id);
+      type: new GraphQLList(UserType),
+      async resolve() {
+        const res = await connection.manager.getRepository(User).find();
+        console.log(res);
+        return res;
       }
     }
   }
