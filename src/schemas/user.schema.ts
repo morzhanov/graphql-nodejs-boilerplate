@@ -1,4 +1,4 @@
-import {User} from "../entities/user.entity";
+import {User} from "../entities";
 
 const graphql = require('graphql');
 const {

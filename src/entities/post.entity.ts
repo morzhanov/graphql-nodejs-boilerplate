@@ -6,8 +6,11 @@ export class Post {
   id: number;
 
   @Column('text')
-  email: string;
+  url: string;
 
-  @Column('text')
-  password: string;
+  @Column('integer')
+  likes: string;
+
+  @Column('integer')
+  owner: string;
 }

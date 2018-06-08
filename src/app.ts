@@ -1,11 +1,9 @@
 import {RootQuery} from "./queries";
-
-global.Promise = require('bluebird');
 import 'reflect-metadata';
 import {Application} from "express";
 import connectDatabase from './db';
-import api from './routers';
-import {API_URI} from './constants';
+
+global.Promise = require('bluebird');
 
 const app: Application = require('express')();
 const express_graphql = require('express-graphql');
@@ -37,6 +35,5 @@ if (app.get('env') === 'production') {
 app.use(cors());
 app.use(json());
 app.use(urlencoded({extended: false}));
-app.use(API_URI, api);
 
 export default app;
