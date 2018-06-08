@@ -1,7 +1,7 @@
 import {RootQuery} from "./queries";
 import 'reflect-metadata';
 import {Application} from "express";
-import connectDatabase from './db';
+import {connect} from './db';
 
 global.Promise = require('bluebird');
 
@@ -10,10 +10,9 @@ const express_graphql = require('express-graphql');
 const cors = require('cors');
 const {json, urlencoded} = require('body-parser');
 
-connectDatabase().then(connection => {
+connect().then(connection => {
   console.log(`Database connected`);
   console.log(connection.options);
-  app.set('db', connection);
 
   // Create a GraphQL endpoint
   app.use('/', express_graphql({

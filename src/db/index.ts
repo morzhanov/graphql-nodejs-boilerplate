@@ -1,15 +1,26 @@
-import {createConnection} from 'typeorm';
+import {Connection, createConnection} from 'typeorm';
 import config from './config';
-import {User} from "../entities/user.entity";
+import {Post, User} from "../entities";
 
-export default async () => await createConnection({
-  type: 'postgres',
-  entities: [
-    User
-  ],
-  synchronize: true,
-  extra: {
-    ssl: true
-  },
-  ...config
-});
+interface DB {
+  connection?: Connection
+}
+
+export const db: DB = {};
+
+export const connect = async () => {
+  const connection = await createConnection({
+    type: 'postgres',
+    entities: [
+      User,
+      Post
+    ],
+    synchronize: true,
+    extra: {
+      ssl: true
+    },
+    ...config
+  });
+  db.connection = connection;
+  return connection;
+};

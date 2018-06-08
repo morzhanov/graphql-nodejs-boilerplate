@@ -1,10 +1,7 @@
 import {Post, User} from "../entities";
 import {GraphQLList, GraphQLObjectType, GraphQLSchema} from "graphql";
-import {Connection} from "typeorm";
-import app from "../app";
 import {PostType, UserType} from '../schemas';
-
-const connection: Connection = app.get('db');
+import {db} from "../db";
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -12,13 +9,13 @@ const RootQueryType = new GraphQLObjectType({
     users: {
       type: new GraphQLList(UserType),
       async resolve() {
-        return await connection.manager.getRepository(User).find();
+        return await db.connection.manager.getRepository(User).find();
       }
     },
     posts: {
       type: new GraphQLList(PostType),
       async resolve() {
-        return await connection.manager.getRepository(Post).find();
+        return await db.connection.manager.getRepository(Post).find();
       }
     }
   }

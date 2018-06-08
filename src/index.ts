@@ -8,7 +8,6 @@ import app from './app';
 import {Server} from "http";
 
 const signals = ['SIGINT', 'SIGTERM'];
-const db = app.get('db');
 // create https server
 const server: Server = http.createServer(app);
 
