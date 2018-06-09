@@ -1,5 +1,5 @@
 import {PostQuery, PostsQuery, UserQuery, UsersQuery} from "./queries";
-import {AddPostMutation, AddUserMutation} from "./mutations";
+import {AddPostMutation, AddUserMutation, DeletePostMutation, DeleteUserMutation} from "./mutations";
 import {GraphQLObjectType, GraphQLSchema} from "graphql";
 
 const RootQueryType = new GraphQLObjectType({
@@ -16,7 +16,9 @@ const RootMutationsType = new GraphQLObjectType({
   name: 'RootMutationsType',
   fields: {
     addUser: AddUserMutation,
-    addPost: AddPostMutation
+    addPost: AddPostMutation,
+    deleteUser: DeleteUserMutation,
+    deletePost: DeletePostMutation
   }
 });
 

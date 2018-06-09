@@ -1,5 +1,5 @@
 import {GraphQLInt, GraphQLNonNull, GraphQLString} from "graphql";
-import {PostType, UserType} from '../types';
+import {PostType, SimpleResponse, UserType} from '../types';
 import {PostService} from "../../services";
 
 export const AddPostMutation = {
@@ -12,5 +12,15 @@ export const AddPostMutation = {
   },
   resolve: async (value: any, attrs: typeof UserType) => {
     return await PostService.createPost(attrs);
+  }
+};
+
+export const DeletePostMutation = {
+  type: SimpleResponse,
+  args: {
+    id: {type: new GraphQLNonNull(GraphQLInt)}
+  },
+  resolve: async (value: any, {id}: {id: number}) => {
+    return await PostService.deletePost(id);
   }
 };

@@ -19,5 +19,18 @@ export const PostService = {
       .getRepository(Post)
       .insert(post);
     return post
+  },
+  deletePost: async (id: number) => {
+    const post = await db.connection.manager
+      .getRepository(Post)
+      .findOne(id);
+    await db.connection.manager
+      .getRepository(Post)
+      .delete(id);
+    return post ? {
+      message: 'deleted'
+    } : {
+      message: 'no post found'
+    };
   }
 };

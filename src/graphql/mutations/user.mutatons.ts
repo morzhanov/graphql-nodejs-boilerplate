@@ -1,5 +1,5 @@
 import {GraphQLInt, GraphQLNonNull, GraphQLString} from "graphql";
-import {UserType} from '../types';
+import {SimpleResponse, UserType} from '../types';
 import {UserService} from "../../services";
 
 export const AddUserMutation = {
@@ -11,5 +11,15 @@ export const AddUserMutation = {
   },
   resolve: async (value: any, attrs: typeof UserType) => {
     return await UserService.createUser(attrs);
+  }
+};
+
+export const DeleteUserMutation = {
+  type: SimpleResponse,
+  args: {
+    id: {type: new GraphQLNonNull(GraphQLInt)}
+  },
+  resolve: async (value: any, {id}: {id: number}) => {
+    return await UserService.deleteUser(id);
   }
 };
