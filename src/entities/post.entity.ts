@@ -9,7 +9,7 @@ export class Post {
   url: string;
 
   @Column('integer')
-  likes: string;
+  likes: number;
 
   @Column('integer')
   owner: string;
