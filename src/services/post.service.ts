@@ -20,6 +20,14 @@ export const PostService = {
       .insert(post);
     return post
   },
+  updatePost: async (attrs: typeof PostType) => {
+    await db.connection.manager
+      .getRepository(Post)
+      .update({id: attrs.id}, attrs);
+    return await db.connection.manager
+      .getRepository(Post)
+      .findOne(attrs.id);
+  },
   deletePost: async (id: number) => {
     const post = await db.connection.manager
       .getRepository(Post)

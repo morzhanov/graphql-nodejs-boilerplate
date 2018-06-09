@@ -15,6 +15,19 @@ export const AddPostMutation = {
   }
 };
 
+export const UpdatePostMutation = {
+  type: PostType,
+  args: {
+    id: {type: new GraphQLNonNull(GraphQLInt)},
+    url: {type: new GraphQLNonNull(GraphQLString)},
+    likes: {type: new GraphQLNonNull(GraphQLInt)},
+    owner: {type: new GraphQLNonNull(GraphQLInt)}
+  },
+  resolve: async (value: any, attrs: typeof PostType) => {
+    return await PostService.updatePost(attrs);
+  }
+};
+
 export const DeletePostMutation = {
   type: SimpleResponse,
   args: {

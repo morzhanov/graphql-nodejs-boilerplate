@@ -20,6 +20,14 @@ export const UserService = {
       .insert(user);
     return user
   },
+  updateUser: async (attrs: typeof UserType) => {
+    await db.connection.manager
+      .getRepository(User)
+      .update({id: attrs.id}, attrs);
+    return await db.connection.manager
+      .getRepository(User)
+      .findOne(attrs.id);
+  },
   deleteUser: async (id: number) => {
     const user = await db.connection.manager
       .getRepository(User)
