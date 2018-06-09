@@ -11,8 +11,9 @@ export const UserService = {
   },
   createUser: async (attrs: typeof UserType) => {
     const user = User.create(attrs);
-    return await db.connection.manager
+    await db.connection.manager
       .getRepository(User)
       .insert(user);
+    return user
   }
 };

@@ -15,8 +15,9 @@ export const PostService = {
   },
   createPost: async (attrs: typeof PostType) => {
     const post = Post.create(attrs);
-    return await db.connection.manager
+    await db.connection.manager
       .getRepository(Post)
       .insert(post);
+    return post
   }
 };
