@@ -1,1 +1,1 @@
-# graphql-node-react-boilerplate
+# graphql-node-boilerplate
