@@ -61,15 +61,28 @@ const RootMutationsType = new GraphQLObjectType({
       }
     },
     addPost: {
-      type: new GraphQLList(PostType),
-      async resolve(value, {id, url, owner}) {
-        const post = new Post();
-        post.id = id;
-        post.likes = 0;
-        post.url = url;
-        post.owner = owner;
-        return await db.connection.manager.getRepository(Post)
-          .create(post);
+      type: ResponseType,
+      args: {
+        id: {type: new GraphQLNonNull(GraphQLInt)},
+        url: {type: new GraphQLNonNull(GraphQLString)},
+        likes: {type: new GraphQLNonNull(GraphQLInt)},
+        owner: {type: new GraphQLNonNull(GraphQLInt)}
+      },
+      async resolve(value, attrs: {id: number, url: string, likes: number, owner: number}) {
+        const post = Post.create(attrs);
+        try {
+          const res = await db.connection.manager
+            .getRepository(Post)
+            .insert(post);
+          return {
+            status: 'Success'
+          }
+        } catch (e) {
+          return {
+            status: 'Failure',
+            error: e.detail
+          }
+        }
       }
     }
   }
