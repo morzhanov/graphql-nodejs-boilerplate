@@ -1,4 +1,4 @@
-import {RootQuery} from "./queries";
+import {RootQuery} from "./graphql/queries";
 import 'reflect-metadata';
 import {Application} from "express";
 import {connect} from './db';

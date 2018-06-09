@@ -1,7 +1,7 @@
-import {Post, User} from "../entities";
+import {Post, User} from "../../entities/index";
 import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSchema, GraphQLString} from "graphql";
-import {PostType, UserType} from '../schemas';
-import {db} from "../db";
+import {PostType, UserType} from '../types/index';
+import {db} from "../../db/index";
 
 const ResponseType = new GraphQLObjectType({
   name: 'ResponseType',
