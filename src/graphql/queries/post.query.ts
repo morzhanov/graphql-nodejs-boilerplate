@@ -1,6 +1,6 @@
 import {GraphQLInt, GraphQLList, GraphQLNonNull} from "graphql";
 import {PostType} from '../types';
-import PostService from "../../services/post.service";
+import {PostService} from "../../services";
 
 export const PostsQuery = {
   type: new GraphQLList(PostType),
