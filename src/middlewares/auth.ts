@@ -1,20 +1,11 @@
-import express from 'express';
-import passport from 'passport';
-import { Strategy as BearerStrategy } from 'passport-http-bearer';
-import {UserService} from "../services";
+import {Request, Response} from "express";
+import {AuthQuery} from "../graphql";
 
-passport.use(new BearerStrategy(async (token, done) => {
-  try {
-    const user = await UserService.getUserByToken(token);
-    if (!user) {
-      return done(null, false);
-    }
-    return done(null, user);
-  }catch (e) {
-      return done(e);
-  }
-}));
+const ExpressGraphQL = require('express-graphql');
 
-export const AuthMiddleware = express();
-AuthMiddleware.use(passport.initialize());
-AuthMiddleware.use(passport.session());
+export const AuthMiddleware = (req: Request, res: Response) => {
+  ExpressGraphQL({
+    schema: AuthQuery,
+    graphiql: true
+  })(req, res);
+};

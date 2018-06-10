@@ -2,6 +2,9 @@ import 'reflect-metadata';
 import {Application} from "express";
 import {connect} from './db';
 import {AuthMiddleware, GraphQLMiddleware} from "./middlewares";
+import {UserService} from "./services";
+import {Strategy as BearerStrategy} from "passport-http-bearer";
+import passport from "passport";
 
 global.Promise = require('bluebird');
 
@@ -13,8 +16,21 @@ connect().then(connection => {
   console.log(`Database connected`);
   console.log(connection.options);
 
-  app.use('/', AuthMiddleware);
-  app.use('/', GraphQLMiddleware);
+  passport.use(new BearerStrategy(async (token, done) => {
+    try {
+      const user = await UserService.getUserByToken(token);
+      if (!user) {
+        return done(null, false);
+      }
+      return done(null, user);
+    }catch (e) {
+      return done(e);
+    }
+  }));
+
+  app.get('/', (q, s) => s.send('Hello'));
+  app.use('/auth', AuthMiddleware);
+  app.use('/api', GraphQLMiddleware);
 });
 
 if (app.get('env') !== 'development') {

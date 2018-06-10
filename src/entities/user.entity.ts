@@ -6,16 +6,19 @@ export class User {
     {
       id,
       email,
-      password
+      password,
+      token
     }: {
       id: number,
       email: string,
-      password: string
+      password: string,
+      token: string
     }) {
     const user = new User();
     user.id = id;
     user.email = email;
     user.password = password;
+    user.token = token;
     return user;
   }
 

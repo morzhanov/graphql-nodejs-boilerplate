@@ -18,16 +18,34 @@ const RootQueryType = new GraphQLObjectType({
   }
 });
 
+const AuthQueryType = new GraphQLObjectType({
+  name: 'AuthQueryType',
+  fields: {
+    posts: PostsQuery
+  }
+});
+
 const RootMutationsType = new GraphQLObjectType({
   name: 'RootMutationsType',
   fields: {
-    addUser: AddUserMutation,
     addPost: AddPostMutation,
     deleteUser: DeleteUserMutation,
     deletePost: DeletePostMutation,
     updateUser: UpdateUserMutation,
     updatePost: UpdatePostMutation
   }
+});
+
+const AuthMutationsType = new GraphQLObjectType({
+  name: 'AuthMutationsType',
+  fields: {
+    addUser: AddUserMutation
+  }
+});
+
+export const AuthQuery = new GraphQLSchema({
+  query: AuthQueryType,
+  mutation: AuthMutationsType
 });
 
 export const RootQuery = new GraphQLSchema({

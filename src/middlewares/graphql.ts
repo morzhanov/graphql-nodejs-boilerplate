@@ -5,17 +5,18 @@ import {User} from "../entities";
 const ExpressGraphQL = require('express-graphql');
 import {RootQuery} from "../graphql";
 
-export const GraphQLMiddleware = ((req: Request, res: Response) => {
-  return new Promise(() => {
-    const next = (user: User) => ExpressGraphQL({
-      schema: RootQuery,
-      graphiql: true,
-      context: {
-        user: user || null,
-      }
-    });
-    passport.authenticate('bearer', {session: false}, (err, user) => {
-      next(user);
-    })(req, res, next);
-  });
+export const GraphQLMiddleware = (async (req: Request, res: Response) => {
+  const next = (user: User) => ExpressGraphQL({
+    schema: RootQuery,
+    graphiql: true,
+    context: {
+      user: user || null
+    }
+  })(req, res);
+  try {
+    const user = await passport.authenticate('bearer', {session: false})(req, res, next);
+    next(user);
+  } catch (e) {
+    next(e)
+  }
 });

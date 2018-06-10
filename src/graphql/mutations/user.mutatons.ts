@@ -7,6 +7,7 @@ export const AddUserMutation = {
   args: {
     id: {type: new GraphQLNonNull(GraphQLInt)},
     email: {type: new GraphQLNonNull(GraphQLString)},
+    token: {type: new GraphQLNonNull(GraphQLString)},
     password: {type: new GraphQLNonNull(GraphQLString)}
   },
   resolve: async (value: any, attrs: typeof UserType) => {
@@ -19,7 +20,8 @@ export const UpdateUserMutation = {
   args: {
     id: {type: new GraphQLNonNull(GraphQLInt)},
     email: {type: new GraphQLNonNull(GraphQLString)},
-    password: {type: new GraphQLNonNull(GraphQLString)}
+    password: {type: new GraphQLNonNull(GraphQLString)},
+    token: {type: new GraphQLNonNull(GraphQLString)}
   },
   resolve: async (value: any, attrs: typeof UserType) => {
     return await UserService.updateUser(attrs);
