@@ -11,13 +11,13 @@ export class Post {
     }: {
       id: number,
       url: string,
-      likes: number,
+      likes?: number,
       owner: number
     }) {
     const post = new Post();
     post.id = id;
     post.url = url;
-    post.likes = likes;
+    post.likes = likes || 0;
     post.owner = owner;
     return post;
   }

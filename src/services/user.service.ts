@@ -13,6 +13,11 @@ export const UserService = {
       .getRepository(User)
       .findOne(id);
   },
+  getUserByToken: async (token: string) => {
+    return await db.connection.manager
+      .getRepository(User)
+      .findOne({token: token});
+  },
   createUser: async (attrs: typeof UserType) => {
     const user = User.create(attrs);
     await db.connection.manager
