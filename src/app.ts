@@ -5,6 +5,7 @@ import {AuthMiddleware, GraphQLMiddleware} from "./middlewares";
 import {UserService} from "./services";
 import {Strategy as BearerStrategy} from "passport-http-bearer";
 import passport from "passport";
+import {User} from "./entities";
 
 global.Promise = require('bluebird');
 
@@ -12,21 +13,22 @@ const app: Application = require('express')();
 const cors = require('cors');
 const {json, urlencoded} = require('body-parser');
 
+passport.use(new BearerStrategy(async (token, done) => {
+  try {
+    // const user = await UserService.getUserByToken(token);
+    const user = new User();
+    if (!user) {
+      return done(null, 'a');
+    }
+    return done(null, user);
+  }catch (e) {
+    return done(e);
+  }
+}));
+
 connect().then(connection => {
   console.log(`Database connected`);
   console.log(connection.options);
-
-  passport.use(new BearerStrategy(async (token, done) => {
-    try {
-      const user = await UserService.getUserByToken(token);
-      if (!user) {
-        return done(null, false);
-      }
-      return done(null, user);
-    }catch (e) {
-      return done(e);
-    }
-  }));
 
   app.get('/', (q, s) => s.send('Hello'));
   app.use('/auth', AuthMiddleware);
@@ -45,6 +47,8 @@ if (app.get('env') === 'production') {
 
 app.use(cors());
 app.use(json());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(urlencoded({extended: false}));
 
 export default app;

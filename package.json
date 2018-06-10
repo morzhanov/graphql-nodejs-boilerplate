@@ -52,6 +52,7 @@
     "graphql-tools": "^3.0.2",
     "jsonwebtoken": "^5.7.0",
     "lodash": "^4.17.4",
+    "node-uuid": "^1.4.8",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
     "pg": "^7.4.3",
