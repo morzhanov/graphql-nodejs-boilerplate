@@ -6,3 +6,8 @@ node_modules/
 dist/
 .idea/
 src/db/config.ts
+.DS_Store
+
+## vs code
+*.code-workspace
+.vscode/
