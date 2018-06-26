@@ -1,13 +1,10 @@
 {
-  "name": "graphql-react-nodejs-boilerplate-server",
+  "name": "graphql-nodejs-boilerplate",
   "version": "1.0.0",
-  "description": "GraphQL application boilerplate with React, NodeJS and Typescript support. (Server part)",
+  "description": "GraphQL application boilerplate with NodeJS and Typescript support.",
   "scripts": {
-    "start": "node ./dist"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/VladMorzhanov/mst-react-boilerplate"
+    "start": "ts-node src/index.ts",
+    "serve": "node ./dist"
   },
   "keywords": [
     "graphql",
@@ -58,6 +55,8 @@
     "pg": "^7.4.3",
     "pg-promise": "^8.4.4",
     "request": "^2.81.0",
+    "ts-node": "^7.0.0",
+    "tsconfig-paths": "^3.4.1",
     "typeorm": "^0.2.6",
     "typescript": "^2.8.3"
   }
