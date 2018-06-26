@@ -1,11 +1,11 @@
 import passport from 'passport';
-import {Request, Response} from "express";
-import {User} from "../entities";
+import { Request, Response } from "express";
+import { User } from "../entities";
 
 const ExpressGraphQL = require('express-graphql');
-import {RootQuery} from "../graphql";
+import { RootQuery } from "../graphql";
 
-export const GraphQLMiddleware = (async (req: Request, res: Response) => {
+export const GraphQLMiddleware = ((req: Request, res: Response) => {
   const next = (user: User) => ExpressGraphQL({
     schema: RootQuery,
     graphiql: true,
@@ -13,9 +13,16 @@ export const GraphQLMiddleware = (async (req: Request, res: Response) => {
       user: user || null
     }
   })(req, res);
+
   try {
-    const user = await passport.authenticate('bearer', {session: false})(req, res, next);
-    next(user);
+    passport.authenticate(
+      'bearer',
+      { session: false },
+      function (err: Error, user: User, info: any) {
+        console.log(user);
+        next(user)
+      }
+    )(req, res, next)
   } catch (e) {
     next(e)
   }

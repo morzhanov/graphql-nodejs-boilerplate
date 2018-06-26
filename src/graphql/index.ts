@@ -21,7 +21,7 @@ const RootQueryType = new GraphQLObjectType({
 const AuthQueryType = new GraphQLObjectType({
   name: 'AuthQueryType',
   fields: {
-    posts: PostsQuery
+    posts: PostQuery
   }
 });
 
