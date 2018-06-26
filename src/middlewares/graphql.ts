@@ -19,7 +19,13 @@ export const GraphQLMiddleware = ((req: Request, res: Response) => {
       'bearer',
       { session: false },
       function (err: Error, user: User, info: any) {
-        console.log(user);
+        if (err) {
+          if (err.message === 'Unauthorized') {
+            res.sendStatus(401)
+          }
+          res.send(err)
+        }
+
         next(user)
       }
     )(req, res, next)
