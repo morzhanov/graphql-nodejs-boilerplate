@@ -16,9 +16,6 @@ export const connect = async () => {
       Post
     ],
     synchronize: true,
-    extra: {
-      ssl: true
-    },
     ...config
   });
   db.connection = connection;
