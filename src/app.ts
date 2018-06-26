@@ -15,16 +15,12 @@ const { json, urlencoded } = require('body-parser');
 
 passport.use(new BearerStrategy(async (token, done) => {
   try {
-    const promise = UserService.getUserByToken(token)
-    
-    promise.then(function (user: User) {
-
-      if (!user) {
-        return done(new Error('Unauthorized'), null);
-      }
-      return done(null, user);
-    })
-
+    const user: User = await UserService.getUserByToken(token)
+  
+    if (!user) {
+      return done(new Error('Unauthorized'));
+    }
+    return done(null, user);
   } catch (e) {
     return done(e);
   }

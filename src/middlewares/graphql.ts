@@ -14,22 +14,18 @@ export const GraphQLMiddleware = ((req: Request, res: Response) => {
     }
   })(req, res);
 
-  try {
-    passport.authenticate(
-      'bearer',
-      { session: false },
-      function (err: Error, user: User, info: any) {
-        if (err) {
-          if (err.message === 'Unauthorized') {
-            res.sendStatus(401)
-          }
-          res.send(err)
+  passport.authenticate(
+    'bearer',
+    { session: false },
+    (err: Error, user: User, info: any) => {
+      if (err) {
+        if (err.message === 'Unauthorized') {
+          return res.sendStatus(401)
         }
-
-        next(user)
+        return res.send(err)
       }
-    )(req, res, next)
-  } catch (e) {
-    next(e)
-  }
+
+      next(user)
+    }
+  )(req, res, next)
 });
