@@ -12,6 +12,13 @@ export const AddUserMutation = {
   },
   resolve: async (value: any, attrs: typeof UserType, context: any) => {
     const {response} = context
+
+    const dbUser: User = await UserService.getUserByEmail(attrs.email);
+
+    if (dbUser) {
+      return new Error('User with this email already exists.');
+    }
+
     const user: User =  await UserService.createUser(attrs);
 
     const token = UserService.createToken(user);
@@ -55,6 +62,16 @@ export const UpdateUserMutation = {
   },
   resolve: async (value: any, attrs: typeof UserType, context: any) => {
     const {response} = context
+
+    // check is user with this email already exists if user want to change email
+    if (attrs.email !== context.user.email) {
+      const dbUser: User = await UserService.getUserByEmail(attrs.email);
+
+      if (dbUser && dbUser.id !== context.user.id) {
+        return new Error('User with this email already exists.');
+      }
+    }
+
     const user: User =  await UserService.updateUser(attrs);
 
     const token = UserService.createToken(user);
