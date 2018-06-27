@@ -2,6 +2,8 @@ import { db } from "../db";
 import { User } from "../entities";
 import { UserType } from "../graphql/types";
 import bcrypt from 'bcrypt-nodejs'
+import jwt from 'jsonwebtoken'
+import { SECRET } from "../constants";
 
 export const UserService = {
   getUsers: async () => {
@@ -13,11 +15,6 @@ export const UserService = {
     return await db.connection.manager
       .getRepository(User)
       .findOne(id);
-  },
-  getUserByToken: async (token: string) => {
-    return await db.connection.manager
-      .getRepository(User)
-      .findOne({ token: token });
   },
   createUser: async (attrs: typeof UserType) => {
     const user = User.create(attrs);
@@ -70,5 +67,13 @@ export const UserService = {
         ? callback(null, isPasswordMatch)
         : callback(err);
     });
+  },
+  createToken: (user: User) => {
+    return jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30),
+      data: {
+        id: user.id
+      }
+    }, SECRET);
   }
 };

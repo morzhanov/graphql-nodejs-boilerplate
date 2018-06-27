@@ -6,6 +6,10 @@ const ExpressGraphQL = require('express-graphql');
 export const AuthMiddleware = (req: Request, res: Response) => {
   ExpressGraphQL({
     schema: AuthQuery,
-    graphiql: true
+    graphiql: true,
+    context: {
+      request: req,
+      response: res
+    }
   })(req, res);
 };

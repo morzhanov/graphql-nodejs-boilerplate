@@ -7,19 +7,16 @@ export class User {
     {
       id,
       email,
-      password,
-      token
+      password
     }: {
       id: number,
       email: string,
-      password: string,
-      token: string
+      password: string
     }) {
     const user = new User();
     user.id = id;
     user.email = email;
     user.password = password;
-    user.token = token;
     return user;
   }
 
@@ -31,9 +28,6 @@ export class User {
 
   @Column('text')
   password: string;
-
-  @Column('text')
-  token: string;
 
   @BeforeInsert()
   @BeforeUpdate()

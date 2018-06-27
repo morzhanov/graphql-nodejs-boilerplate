@@ -10,6 +10,8 @@ export const GraphQLMiddleware = ((req: Request, res: Response) => {
     schema: RootQuery,
     graphiql: true,
     context: {
+      request: req,
+      response: res,
       user: user || null
     }
   })(req, res);

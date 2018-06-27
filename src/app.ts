@@ -6,6 +6,8 @@ import { UserService } from "./services";
 import { Strategy as BearerStrategy } from "passport-http-bearer";
 import passport from "passport";
 import { User } from "./entities";
+import jwt from 'jsonwebtoken'
+import { SECRET } from './constants'
 
 global.Promise = require('bluebird');
 
@@ -15,13 +17,23 @@ const { json, urlencoded } = require('body-parser');
 
 passport.use(new BearerStrategy(async (token, done) => {
   try {
-    const user: User = await UserService.getUserByToken(token)
+    const decoded: any = await jwt.verify(token, SECRET)
+
+    if (!decoded || !decoded.id) {
+      return done(new Error('Unauthorized'));
+    }
+
+    const user: User = await UserService.getUser(decoded.id)
   
     if (!user) {
       return done(new Error('Unauthorized'));
     }
     return done(null, user);
   } catch (e) {
+    if (e.name === 'JsonWebTokenError') {
+      return done(new Error('Unauthorized'))
+    }
+
     return done(e);
   }
 }));
