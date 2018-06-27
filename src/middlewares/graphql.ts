@@ -14,6 +14,14 @@ export const GraphQLMiddleware = ((req: Request, res: Response) => {
     }
   })(req, res);
 
+  // check Authorization header
+  if (
+    !req.headers['authorization'] ||
+    req.headers['authorization'].indexOf('Bearer') < 0
+  ) {
+    return res.sendStatus(401)
+  }
+
   passport.authenticate(
     'bearer',
     { session: false },
