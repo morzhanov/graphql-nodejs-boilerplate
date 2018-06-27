@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryColumn} from 'typeorm';
+import {Column, Entity, PrimaryColumn, BeforeInsert, BeforeUpdate} from 'typeorm';
+import { UserService } from '../services';
 
 @Entity()
 export class User {
@@ -33,4 +34,10 @@ export class User {
 
   @Column('text')
   token: string;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPwd () {
+    this.password = await UserService.cryptPassword(this.password)
+  }
 }

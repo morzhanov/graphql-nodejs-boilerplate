@@ -1,6 +1,7 @@
-import {db} from "../db";
-import {User} from "../entities";
-import {UserType} from "../graphql/types";
+import { db } from "../db";
+import { User } from "../entities";
+import { UserType } from "../graphql/types";
+import bcrypt from 'bcrypt-nodejs'
 
 export const UserService = {
   getUsers: async () => {
@@ -16,7 +17,7 @@ export const UserService = {
   getUserByToken: async (token: string) => {
     return await db.connection.manager
       .getRepository(User)
-      .findOne({token: token});
+      .findOne({ token: token });
   },
   createUser: async (attrs: typeof UserType) => {
     const user = User.create(attrs);
@@ -28,7 +29,7 @@ export const UserService = {
   updateUser: async (attrs: typeof UserType) => {
     await db.connection.manager
       .getRepository(User)
-      .update({id: attrs.id}, attrs);
+      .update({ id: attrs.id }, attrs);
     return await db.connection.manager
       .getRepository(User)
       .findOne(attrs.id);
@@ -43,7 +44,31 @@ export const UserService = {
     return user ? {
       message: 'deleted'
     } : {
-      message: 'no user found'
-    };
+        message: 'no user found'
+      };
+  },
+  cryptPassword: (password: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      bcrypt.genSalt(10, (err: Error, salt: string) => {
+        if (err) {
+          reject(err)
+        }
+  
+        bcrypt.hash(password, salt, null, (err: Error, hash: string) => {
+          if (err) {
+            reject(err)
+          }
+
+          resolve(hash);
+        });
+      });
+    })
+  },
+  comparePassword: (plainPass: string, user: User, callback: Function) => {
+    bcrypt.compare(plainPass, user.password, (err: Error, isPasswordMatch: boolean) => {
+      return err == null
+        ? callback(null, isPasswordMatch)
+        : callback(err);
+    });
   }
 };
