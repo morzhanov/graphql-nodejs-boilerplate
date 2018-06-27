@@ -6,24 +6,29 @@ import jwt from 'jsonwebtoken'
 import { SECRET } from "../constants";
 
 export const UserService = {
-  getUsers: async () => {
+  getUsers: async (): Promise<Array<User>> => {
     return await db.connection.manager
       .getRepository(User)
       .find();
   },
-  getUser: async (id: number) => {
+  getUser: async (id: number): Promise<User> => {
     return await db.connection.manager
       .getRepository(User)
       .findOne(id);
   },
-  createUser: async (attrs: typeof UserType) => {
+  getUserByEmail: async (email: string): Promise<User> => {
+    return await db.connection.manager
+      .getRepository(User)
+      .findOne({email: email});
+  },
+  createUser: async (attrs: typeof UserType): Promise<User> => {
     const user = User.create(attrs);
     await db.connection.manager
       .getRepository(User)
       .insert(user);
     return user
   },
-  updateUser: async (attrs: typeof UserType) => {
+  updateUser: async (attrs: typeof UserType): Promise<User> => {
     await db.connection.manager
       .getRepository(User)
       .update({ id: attrs.id }, attrs);
@@ -31,7 +36,7 @@ export const UserService = {
       .getRepository(User)
       .findOne(attrs.id);
   },
-  deleteUser: async (id: number) => {
+  deleteUser: async (id: number): Promise<any> => {
     const user = await db.connection.manager
       .getRepository(User)
       .findOne(id);
@@ -61,14 +66,16 @@ export const UserService = {
       });
     })
   },
-  comparePassword: (plainPass: string, user: User, callback: Function) => {
-    bcrypt.compare(plainPass, user.password, (err: Error, isPasswordMatch: boolean) => {
-      return err == null
-        ? callback(null, isPasswordMatch)
-        : callback(err);
+  comparePassword: (plainPass: string, user: User): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(plainPass, user.password, (err: Error, isPasswordMatch: boolean) => {
+        return err == null
+          ? resolve(isPasswordMatch)
+          : reject(err);
+      });
     });
   },
-  createToken: (user: User) => {
+  createToken: (user: User): string => {
     return jwt.sign({
       exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30),
       data: {

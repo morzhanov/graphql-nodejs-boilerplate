@@ -4,7 +4,8 @@ import {
   AddUserMutation,
   DeletePostMutation,
   DeleteUserMutation, UpdatePostMutation,
-  UpdateUserMutation
+  UpdateUserMutation,
+  LoginUser
 } from "./mutations";
 import {GraphQLObjectType, GraphQLSchema} from "graphql";
 
@@ -39,7 +40,8 @@ const RootMutationsType = new GraphQLObjectType({
 const AuthMutationsType = new GraphQLObjectType({
   name: 'AuthMutationsType',
   fields: {
-    addUser: AddUserMutation
+    addUser: AddUserMutation,
+    loginUser: LoginUser
   }
 });
 

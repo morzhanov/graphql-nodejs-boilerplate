@@ -19,7 +19,7 @@ passport.use(new BearerStrategy(async (token, done) => {
   try {
     const decoded: any = await jwt.verify(token, SECRET)
 
-    if (!decoded || !decoded.id) {
+    if (!decoded.data || !decoded.data.id) {
       return done(new Error('Unauthorized'));
     }
 
