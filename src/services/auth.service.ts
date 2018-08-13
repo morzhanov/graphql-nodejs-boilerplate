@@ -1,12 +1,45 @@
-import uuid = require("uuid/v4");
+import { db } from "../db";
+import { SECRET } from "../constants";
 import jwt = require("jsonwebtoken");
+import { RefreshToken } from "../entities/refresh.token.entity";
 
-async function issueTokenPair(userId: string) {
-  const newRefreshToken = uuid();
-  // TODO add token to DB
+export const AuthService = {
+  issueTokenPair: async (userId: string) => {
+    const refreshToken = RefreshToken.create(userId);
+    await db.connection.manager
+      .getRepository(RefreshToken)
+      .insert(refreshToken);
 
-  return {
-    token: jwt.sign({ id: userId }, config.secret),
-    refreshToken: newRefreshToken
-  };
-}
+    return {
+      token: jwt.sign({ id: userId }, SECRET),
+      reshToken: refreshToken
+    };
+  },
+
+  verifyToken: async (token: string) => {
+    return jwt.verify(token, SECRET);
+  },
+
+  getRefreshToken: async (value: string) => {
+    return db.connection.manager
+      .getRepository(RefreshToken)
+      .find({ value: value });
+  },
+
+  removeRefreshToken: async ({
+    value,
+    userId
+  }: {
+    value?: string;
+    userId?: string;
+  }) => {
+    if (value) {
+      return db.connection.manager.getRepository(RefreshToken).delete(value);
+    }
+    if (userId) {
+      return db.connection.manager
+        .getRepository(RefreshToken)
+        .delete({ userId: userId });
+    }
+  }
+};
