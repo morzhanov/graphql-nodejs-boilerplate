@@ -17,6 +17,7 @@
   "author": "Vlad Morzhanov",
   "license": "MIT",
   "devDependencies": {
+    "@types/uuid": "^3.4.3",
     "babel-core": "^6.9.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
@@ -58,6 +59,7 @@
     "ts-node": "^7.0.0",
     "tsconfig-paths": "^3.4.1",
     "typeorm": "^0.2.6",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "uuid": "^3.3.2"
   }
 }

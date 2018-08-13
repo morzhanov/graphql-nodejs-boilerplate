@@ -1,2 +1,2 @@
-export const PORT: number = 3300;
+export const PORT: number = 4000;
 export const SECRET: string = 'examplesecret';
