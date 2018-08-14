@@ -1,13 +1,13 @@
-import http = require('http');
-import async = require('async');
+import http = require("http");
+import async = require("async");
 import Signals = NodeJS.Signals;
-import {PORT} from './constants';
-import {NextFunction} from "express";
+import { PORT } from "./constants";
+import { NextFunction } from "express";
 import ErrnoException = NodeJS.ErrnoException;
-import app from './app';
-import {Server} from "http";
+import app from "./app";
+import { Server } from "http";
 
-const signals = ['SIGINT', 'SIGTERM'];
+const signals = ["SIGINT", "SIGTERM"];
 // create https server
 const server: Server = http.createServer(app);
 
@@ -15,15 +15,12 @@ const server: Server = http.createServer(app);
 server.listen(PORT);
 
 // set listeners and error handlers
-server.on('error', onError);
-server.on('listening', onListening);
+server.on("error", onError);
+server.on("listening", onListening);
 
-signals.forEach(function (signal: Signals) {
+signals.forEach(function(signal: Signals) {
   process.once(signal, () => {
-    async.waterfall([
-      closeServer,
-      closeDbConnection
-    ], closeApp);
+    async.waterfall([closeServer, closeDbConnection], closeApp);
   });
 });
 
@@ -32,7 +29,7 @@ signals.forEach(function (signal: Signals) {
  * @param  {Error} err - passed error
  */
 function closeApp(err: Error) {
-  console.log('Now application will be closed!', err || '');
+  console.log("Now application will be closed!", err || "");
   err ? process.exit(1) : process.exit(0);
 }
 
@@ -41,7 +38,7 @@ function closeApp(err: Error) {
  * @param  {Function} next - next passed callback
  */
 function closeServer(next: NextFunction) {
-  console.log('Now server will be closed!');
+  console.log("Now server will be closed!");
   server.close(next);
 }
 
@@ -50,7 +47,7 @@ function closeServer(next: NextFunction) {
  * @param  {Function} next - next passed callback
  */
 function closeDbConnection(next: NextFunction) {
-  console.log('Now db will be closed!');
+  console.log("Now db will be closed!");
 }
 
 /**
@@ -66,15 +63,15 @@ function onListening() {
  * @param  {Error} err - passed error
  */
 function onError(err: ErrnoException) {
-  if (err.syscall !== 'listen') {
+  if (err.syscall !== "listen") {
     throw err;
   }
 
   switch (err.code) {
-    case 'EACCES':
+    case "EACCES":
       console.log(`Port ${PORT} requires elevated privileges`);
       return process.exit(1);
-    case 'EADDRINUSE':
+    case "EADDRINUSE":
       console.log(`Port ${PORT} is already in use`);
       return process.exit(1);
     default:

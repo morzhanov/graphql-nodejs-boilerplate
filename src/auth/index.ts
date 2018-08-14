@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { compareSync } from "bcrypt-nodejs";
-import { User } from "../entities";
+import { User } from "../entities/user.entity";
 import { RefreshToken } from "../entities/refresh.token.entity";
+
 const { Router } = require("express");
 const AuthService = require("../services/auth.service");
 const UserService = require("../services/user.service");

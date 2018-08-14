@@ -5,7 +5,7 @@ import {
   BeforeInsert,
   BeforeUpdate
 } from "typeorm";
-import { UserService } from "../services";
+import { UserService } from "../services/user.service";
 
 @Entity()
 export class User {

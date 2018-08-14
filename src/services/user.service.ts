@@ -1,8 +1,8 @@
-import { db } from "../db";
-import { User } from "../entities";
-import { UserType } from "../graphql/types";
 import bcrypt from "bcrypt-nodejs";
 import jwt from "jsonwebtoken";
+import { db } from "../db";
+import { User } from "../entities/user.entity";
+import { UserType } from "../graphql/types/user.type";
 import { SECRET } from "../constants";
 
 export const UserService = {

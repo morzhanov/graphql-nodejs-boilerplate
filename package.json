@@ -42,7 +42,6 @@
   "dependencies": {
     "async": "^2.1.4",
     "bcrypt-nodejs": "0.0.3",
-    "bluebird": "^3.4.7",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",

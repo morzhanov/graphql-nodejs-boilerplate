@@ -1,6 +1,6 @@
-import {GraphQLInt, GraphQLList, GraphQLNonNull} from "graphql";
-import {UserType} from '../types';
-import {UserService} from "../../services";
+import { GraphQLInt, GraphQLList, GraphQLNonNull } from "graphql";
+import { UserType } from "../types/user.type";
+import { UserService } from "../../services/user.service";
 
 export const UsersQuery = {
   type: new GraphQLList(UserType),
@@ -10,7 +10,7 @@ export const UsersQuery = {
 export const UserQuery = {
   type: new GraphQLList(UserType),
   args: {
-    id: {type: new GraphQLNonNull(GraphQLInt)}
+    id: { type: new GraphQLNonNull(GraphQLInt) }
   },
-  resolve: async (value: any, {id}: {id: number}) => UserService.getUser(id)
+  resolve: async (value: any, { id }: { id: number }) => UserService.getUser(id)
 };

@@ -1,6 +1,7 @@
-import { User } from "../entities";
+import { User } from "../entities/user.entity";
 import { Request, Response } from "express";
 import { RootQuery } from "../graphql";
+
 const ExpressGraphQL = require("express-graphql");
 const AuthService = require("../services/auth.service");
 const UserService = require("../services/user.service");

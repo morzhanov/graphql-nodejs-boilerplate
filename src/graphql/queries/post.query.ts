@@ -1,6 +1,6 @@
-import {GraphQLInt, GraphQLList, GraphQLNonNull} from "graphql";
-import {PostType} from '../types';
-import {PostService} from "../../services";
+import { GraphQLInt, GraphQLList, GraphQLNonNull } from "graphql";
+import { PostType } from "../types/post.type";
+import { PostService } from "../../services/post.service";
 
 export const PostsQuery = {
   type: new GraphQLList(PostType),
@@ -10,7 +10,7 @@ export const PostsQuery = {
 export const PostQuery = {
   type: new GraphQLList(PostType),
   args: {
-    id: {type: new GraphQLNonNull(GraphQLInt)}
+    id: { type: new GraphQLNonNull(GraphQLInt) }
   },
-  resolve: async (value: any, {id}: {id: number}) => PostService.getPost(id)
+  resolve: async (value: any, { id }: { id: number }) => PostService.getPost(id)
 };

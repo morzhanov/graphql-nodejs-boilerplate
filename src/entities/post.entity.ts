@@ -1,19 +1,18 @@
-import {Column, Entity, PrimaryColumn} from 'typeorm';
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Post {
-  static create(
-    {
-      id,
-      url,
-      likes,
-      owner
-    }: {
-      id: number,
-      url: string,
-      likes?: number,
-      owner: number
-    }) {
+  static create({
+    id,
+    url,
+    likes,
+    owner
+  }: {
+    id: number;
+    url: string;
+    likes?: number;
+    owner: number;
+  }) {
     const post = new Post();
     post.id = id;
     post.url = url;
@@ -25,12 +24,12 @@ export class Post {
   @PrimaryColumn()
   id: number;
 
-  @Column('text')
+  @Column("text")
   url: string;
 
-  @Column('integer')
+  @Column("integer")
   likes: number;
 
-  @Column('integer')
+  @Column("integer")
   owner: number;
 }

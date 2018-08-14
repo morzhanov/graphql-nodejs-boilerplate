@@ -1,14 +1,11 @@
-import {GraphQLString} from "graphql";
+import { GraphQLString } from "graphql";
 
-const graphql = require('graphql');
-const {
-  GraphQLObjectType,
-} = graphql;
+const { GraphQLObjectType } = require("graphql");
 
 export const SimpleResponse = new GraphQLObjectType({
-  name: 'SimpleResponse',
+  name: "SimpleResponse",
   fields: () => ({
-    message: {type: GraphQLString},
-    error: {type: GraphQLString}
+    message: { type: GraphQLString },
+    error: { type: GraphQLString }
   })
 });

@@ -1,6 +1,6 @@
+import jwt = require("jsonwebtoken");
 import { db } from "../db";
 import { SECRET } from "../constants";
-import jwt = require("jsonwebtoken");
 import { RefreshToken } from "../entities/refresh.token.entity";
 
 export const AuthService = {
