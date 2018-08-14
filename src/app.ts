@@ -16,7 +16,9 @@ connect().then(connection => {
   app.use(json());
   app.use(urlencoded({ extended: false }));
 
-  app.get("/", (q, s) => s.send("Hello"));
+  app.get("/", (req, res) => {
+    res.sendFile("templates/index.html", { root: __dirname });
+  });
   app.use("/api", GraphQLMiddleware);
   app.use("/auth", AuthRouter);
 });
