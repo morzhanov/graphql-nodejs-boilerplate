@@ -1,16 +1,11 @@
+import ExpressGraphQL from "express-graphql";
 import { User } from "../entities/user.entity";
 import { Request, Response } from "express";
 import { RootQuery } from "../graphql";
+import { AuthService } from "../services/auth.service";
+import { UserService } from "../services/user.service";
 
-const ExpressGraphQL = require("express-graphql");
-const AuthService = require("../services/auth.service");
-const UserService = require("../services/user.service");
-
-export const GraphQLMiddleware = async (
-  req: Request,
-  res: Response,
-  next: Function
-) => {
+export const GraphQLMiddleware = async (req: Request, res: Response) => {
   const graphql = (user: User) =>
     ExpressGraphQL({
       schema: RootQuery,
@@ -24,11 +19,16 @@ export const GraphQLMiddleware = async (
 
   const accessToken = req.headers.authorization;
   if (!accessToken) {
-    const error = new Error("Unauthorized");
     res.status(401);
-    return next(error);
+    return res.send("Unauthorized");
   }
-  const { userId } = await AuthService.verifyToken(accessToken);
-  const user = await UserService.getUser(userId);
+  const { id } = await AuthService.verifyToken(accessToken);
+  const user = await UserService.getUser(id);
+
+  if (!user) {
+    res.status(401);
+    return res.send("Unauthorized");
+  }
+
   graphql(user);
 };

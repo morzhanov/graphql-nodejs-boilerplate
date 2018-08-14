@@ -9,7 +9,7 @@ export const UserService = {
   getUsers: async (): Promise<Array<User>> => {
     return await db.connection.manager.getRepository(User).find();
   },
-  getUser: async (id: number): Promise<User> => {
+  getUser: async (id: string): Promise<User> => {
     return await db.connection.manager.getRepository(User).findOne(id);
   },
   getUserByEmail: async (email: string): Promise<User> => {

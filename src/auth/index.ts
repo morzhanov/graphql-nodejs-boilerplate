@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import { compareSync } from "bcrypt-nodejs";
-import { User } from "../entities/user.entity";
-import { RefreshToken } from "../entities/refresh.token.entity";
 import { AuthService } from "../services/auth.service";
 import { UserService } from "../services/user.service";
 
