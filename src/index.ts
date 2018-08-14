@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 import http = require("http");
 import async = require("async");
 import Signals = NodeJS.Signals;
