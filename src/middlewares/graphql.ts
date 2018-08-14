@@ -22,7 +22,7 @@ export const GraphQLMiddleware = async (
       }
     })(req, res);
 
-  const accessToken = req.headers["Authorization"];
+  const accessToken = req.headers.authorization;
   if (!accessToken) {
     const error = new Error("Unauthorized");
     res.status(401);

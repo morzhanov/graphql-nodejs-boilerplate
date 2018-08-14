@@ -2,6 +2,7 @@ import jwt = require("jsonwebtoken");
 import { db } from "../db";
 import { SECRET } from "../constants";
 import { RefreshToken } from "../entities/refresh.token.entity";
+import { User } from "../entities/user.entity";
 
 export const AuthService = {
   issueTokenPair: async (userId: string) => {
@@ -11,19 +12,20 @@ export const AuthService = {
       .insert(refreshToken);
 
     return {
-      token: jwt.sign({ id: userId }, SECRET),
-      reshToken: refreshToken
+      accessToken: jwt.sign({ id: userId }, SECRET),
+      refreshToken: refreshToken.value
     };
   },
 
   verifyToken: async (token: string) => {
-    return jwt.verify(token, SECRET);
+    return jwt.verify(token, SECRET) as User;
   },
 
   getRefreshToken: async (value: string) => {
-    return db.connection.manager
+    const token = await db.connection.manager
       .getRepository(RefreshToken)
-      .find({ value: value });
+      .findOne({ where: { value: value } });
+    return token;
   },
 
   removeRefreshToken: async ({
@@ -34,12 +36,22 @@ export const AuthService = {
     userId?: string;
   }) => {
     if (value) {
-      return db.connection.manager.getRepository(RefreshToken).delete(value);
+      return db.connection.manager
+        .createQueryBuilder()
+        .delete()
+        .from(RefreshToken)
+        .where("value = :value")
+        .setParameter("value", value)
+        .execute();
     }
     if (userId) {
       return db.connection.manager
-        .getRepository(RefreshToken)
-        .delete({ userId: userId });
+        .createQueryBuilder()
+        .delete()
+        .from(RefreshToken)
+        .where("userId = :userId")
+        .setParameter("userId", userId)
+        .execute();
     }
   }
 };

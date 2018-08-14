@@ -1,7 +1,7 @@
 import {
   Column,
   Entity,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   BeforeInsert,
   BeforeUpdate
 } from "typeorm";
@@ -9,24 +9,15 @@ import { UserService } from "../services/user.service";
 
 @Entity()
 export class User {
-  static create({
-    // id,
-    email,
-    password
-  }: {
-    // id: number,
-    email: string;
-    password: string;
-  }) {
+  static create({ email, password }: { email: string; password: string }) {
     const user = new User();
-    // user.id = id;
     user.email = email;
     user.password = password;
     return user;
   }
 
-  @PrimaryColumn()
-  id: number;
+  @PrimaryGeneratedColumn()
+  id: string;
 
   @Column("text")
   email: string;
