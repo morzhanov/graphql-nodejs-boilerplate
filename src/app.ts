@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import AuthRouter from "./auth";
 import { Application } from "express";
 import { connect } from "./db";
 import { GraphQLMiddleware } from "./middlewares/graphql";
@@ -20,7 +19,6 @@ connect().then(connection => {
     res.sendFile("templates/index.html", { root: __dirname });
   });
   app.use("/api", GraphQLMiddleware);
-  app.use("/auth", AuthRouter);
 });
 
 if (app.get("env") !== "development") {

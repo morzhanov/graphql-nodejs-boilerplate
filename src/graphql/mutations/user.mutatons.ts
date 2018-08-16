@@ -4,62 +4,6 @@ import { UserType } from "../types/user.type";
 import { UserService } from "../../services/user.service";
 import { User } from "../../entities/user.entity";
 
-export const AddUserMutation = {
-  type: UserType,
-  args: {
-    id: { type: new GraphQLNonNull(GraphQLInt) },
-    email: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
-  },
-  resolve: async (value: any, attrs: typeof UserType, context: any) => {
-    const { response } = context;
-
-    const dbUser: User = await UserService.getUserByEmail(attrs.email);
-
-    if (dbUser) {
-      return new Error("User with this email already exists.");
-    }
-
-    const user: User = await UserService.createUser(
-      attrs.email,
-      attrs.password
-    );
-
-    const token = UserService.createToken(user);
-    response.setHeader("X-Token", `Bearer ${token}`);
-    return user;
-  }
-};
-
-export const LoginUser = {
-  type: UserType,
-  args: {
-    email: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
-  },
-  resolve: async (value: any, attrs: typeof UserType, context: any) => {
-    const { response } = context;
-
-    // get user by email
-    const user: User = await UserService.getUserByEmail(attrs.email);
-
-    // validate password
-    const isPwdValid: boolean = await UserService.comparePassword(
-      attrs.password,
-      user
-    );
-
-    if (!isPwdValid) {
-      return response.sendStatus(401);
-    }
-
-    // send token
-    const token = UserService.createToken(user);
-    response.setHeader("X-Token", `Bearer ${token}`);
-    return user;
-  }
-};
-
 export const UpdateUserMutation = {
   type: UserType,
   args: {

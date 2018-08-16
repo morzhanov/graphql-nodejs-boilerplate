@@ -2,19 +2,23 @@ import { UserQuery, UsersQuery } from "./queries/user.query";
 import { PostQuery, PostsQuery } from "./queries/post.query";
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
 import {
-  AddUserMutation,
   DeleteUserMutation,
-  UpdateUserMutation,
-  LoginUser
+  UpdateUserMutation
 } from "./mutations/user.mutatons";
+import {
+  LoginMutation,
+  RegisterMutation,
+  LogoutMutation,
+  RefreshTokenMutation
+} from "./mutations/auth.mutatons";
 import {
   AddPostMutation,
   DeletePostMutation,
   UpdatePostMutation
 } from "./mutations/post.mutatons";
 
-const RootQueryType = new GraphQLObjectType({
-  name: "RootQueryType",
+const PrivateQueryType = new GraphQLObjectType({
+  name: "PrivateQueryType",
   fields: {
     users: UsersQuery,
     user: UserQuery,
@@ -30,9 +34,11 @@ const AuthQueryType = new GraphQLObjectType({
   }
 });
 
-const RootMutationsType = new GraphQLObjectType({
-  name: "RootMutationsType",
+const PrivateMutationsType = new GraphQLObjectType({
+  name: "PrivateMutationsType",
   fields: {
+    logout: LogoutMutation,
+    refreshToken: RefreshTokenMutation,
     addPost: AddPostMutation,
     deleteUser: DeleteUserMutation,
     deletePost: DeletePostMutation,
@@ -44,17 +50,17 @@ const RootMutationsType = new GraphQLObjectType({
 const AuthMutationsType = new GraphQLObjectType({
   name: "AuthMutationsType",
   fields: {
-    addUser: AddUserMutation,
-    loginUser: LoginUser
+    register: RegisterMutation,
+    login: LoginMutation
   }
 });
 
-export const AuthQuery = new GraphQLSchema({
+export const AuthSchema = new GraphQLSchema({
   query: AuthQueryType,
   mutation: AuthMutationsType
 });
 
-export const RootQuery = new GraphQLSchema({
-  query: RootQueryType,
-  mutation: RootMutationsType
+export const PrivateSchema = new GraphQLSchema({
+  query: PrivateQueryType,
+  mutation: PrivateMutationsType
 });

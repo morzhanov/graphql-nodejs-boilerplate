@@ -1,14 +1,27 @@
 import ExpressGraphQL from "express-graphql";
-import { User } from "../entities/user.entity";
 import { Request, Response } from "express";
-import { RootQuery } from "../graphql";
+import { PrivateSchema, AuthSchema } from "../graphql";
 import { AuthService } from "../services/auth.service";
 import { UserService } from "../services/user.service";
 
 export const GraphQLMiddleware = async (req: Request, res: Response) => {
-  const graphql = (user: User) =>
+  const accessToken = req.headers.authorization;
+  let authorized = false;
+  let user = {};
+
+  if (accessToken) {
+    const { id } = await AuthService.verifyToken(accessToken);
+    user = await UserService.getUser(id);
+    if (user) {
+      authorized = true;
+    }
+  }
+
+  const schema = authorized ? PrivateSchema : AuthSchema;
+
+  const graphql = (user: any) =>
     ExpressGraphQL({
-      schema: RootQuery,
+      schema: schema,
       graphiql: true,
       context: {
         request: req,
@@ -16,19 +29,6 @@ export const GraphQLMiddleware = async (req: Request, res: Response) => {
         user: user || null
       }
     })(req, res);
-
-  const accessToken = req.headers.authorization;
-  if (!accessToken) {
-    res.status(401);
-    return res.send("Unauthorized");
-  }
-  const { id } = await AuthService.verifyToken(accessToken);
-  const user = await UserService.getUser(id);
-
-  if (!user) {
-    res.status(401);
-    return res.send("Unauthorized");
-  }
 
   graphql(user);
 };
