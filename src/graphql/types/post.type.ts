@@ -9,8 +9,7 @@ export const PostType = new GraphQLObjectType({
   name: "Post",
   fields: () => ({
     id: { type: GraphQLID },
-    url: { type: GraphQLString },
-    likes: { type: GraphQLInt },
+    content: { type: GraphQLString },
     owner: { type: GraphQLInt }
   })
 });

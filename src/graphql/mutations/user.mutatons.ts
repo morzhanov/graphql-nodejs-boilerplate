@@ -7,7 +7,6 @@ import { User } from "../../entities/user.entity";
 export const UpdateUserMutation = {
   type: UserType,
   args: {
-    id: { type: new GraphQLNonNull(GraphQLInt) },
     email: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: new GraphQLNonNull(GraphQLString) }
   },
@@ -33,10 +32,7 @@ export const UpdateUserMutation = {
 
 export const DeleteUserMutation = {
   type: SimpleResponse,
-  args: {
-    id: { type: new GraphQLNonNull(GraphQLInt) }
-  },
-  resolve: async (value: any, { id }: { id: number }, context: any) => {
-    return await UserService.deleteUser(id);
+  resolve: async (value: any, attrs: any, context: any) => {
+    return await UserService.deleteUser(context.user);
   }
 };

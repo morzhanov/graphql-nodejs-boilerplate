@@ -6,25 +6,15 @@ import { PostService } from "../../services/post.service";
 
 export const AddPostMutation = {
   type: PostType,
-  args: {
-    id: { type: new GraphQLNonNull(GraphQLInt) },
-    url: { type: new GraphQLNonNull(GraphQLString) },
-    likes: { type: new GraphQLNonNull(GraphQLInt) },
-    owner: { type: new GraphQLNonNull(GraphQLInt) }
-  },
-  resolve: async (value: any, attrs: typeof UserType) => {
+  args: {post: PostType},
+  resolve: async (value: any, attrs: typeof PostType) => {
     return await PostService.createPost(attrs);
   }
 };
 
 export const UpdatePostMutation = {
   type: PostType,
-  args: {
-    id: { type: new GraphQLNonNull(GraphQLInt) },
-    url: { type: new GraphQLNonNull(GraphQLString) },
-    likes: { type: new GraphQLNonNull(GraphQLInt) },
-    owner: { type: new GraphQLNonNull(GraphQLInt) }
-  },
+  args: {post: PostType},
   resolve: async (value: any, attrs: typeof PostType) => {
     return await PostService.updatePost(attrs);
   }

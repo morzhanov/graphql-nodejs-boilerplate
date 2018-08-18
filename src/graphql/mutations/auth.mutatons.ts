@@ -51,10 +51,6 @@ export const RegisterMutation = {
 
 export const LogoutMutation = {
   type: SimpleResponse,
-  args: {
-    email: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
-  },
   resolve: async (value: any, attrs: any, context: any) => {
     const token = context;
     const { id } = await AuthService.verifyToken(token);
@@ -77,7 +73,7 @@ export const RefreshTokenMutation = {
     password: { type: new GraphQLNonNull(GraphQLString) }
   },
   resolve: async (value: any, attrs: any, context: any) => {
-    const refToken = context;
+    const refToken = context.refreshToken;
     const dbToken = await AuthService.getRefreshToken(refToken);
     if (!dbToken) {
       const error = new Error("Unauthorized");
