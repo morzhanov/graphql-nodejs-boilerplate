@@ -30,7 +30,7 @@ const PrivateQueryType = new GraphQLObjectType({
 const AuthQueryType = new GraphQLObjectType({
   name: "AuthQueryType",
   fields: {
-    posts: PostQuery
+    posts: PostsQuery
   }
 });
 

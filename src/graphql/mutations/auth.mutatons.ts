@@ -15,7 +15,7 @@ export const LoginMutation = {
     const { email, password } = attrs;
     const user = await UserService.getUserByEmail(email);
     if (!user || !compareSync(password, user.password)) {
-      const error = new Error("403");
+      const error = new Error("User not found");
       return error;
     }
 

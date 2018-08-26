@@ -1,34 +1,28 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Post {
   static create({
     id,
-    url,
-    likes,
+    content,
     owner
   }: {
     id: number;
-    url: string;
-    likes?: number;
+    content: string;
     owner: number;
   }) {
     const post = new Post();
     post.id = id;
-    post.url = url;
-    post.likes = likes || 0;
+    post.content = content;
     post.owner = owner;
     return post;
   }
 
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column("text")
-  url: string;
-
-  @Column("integer")
-  likes: number;
+  content: string;
 
   @Column("integer")
   owner: number;

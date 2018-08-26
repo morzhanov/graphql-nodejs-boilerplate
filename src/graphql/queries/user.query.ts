@@ -8,9 +8,7 @@ export const UsersQuery = {
 };
 
 export const UserQuery = {
-  type: new GraphQLList(UserType),
-  args: {
-    id: { type: new GraphQLNonNull(GraphQLString) }
-  },
-  resolve: async (value: any, { id }: { id: string }) => UserService.getUser(id)
+  type: UserType,
+  resolve: async (value: any, attrs: any, context: any) =>
+    UserService.getUser(context.user.id)
 };

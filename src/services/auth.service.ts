@@ -1,6 +1,6 @@
 import jwt = require("jsonwebtoken");
 import { db } from "../db";
-import { SECRET } from "../constants";
+import { SECRET, ACCESS_TOKEN_EXPIRES } from "../constants";
 import { RefreshToken } from "../entities/refresh.token.entity";
 import { User } from "../entities/user.entity";
 
@@ -12,7 +12,7 @@ export const AuthService = {
       .insert(refreshToken);
 
     return {
-      accessToken: jwt.sign({ id: userId }, SECRET),
+      accessToken: jwt.sign({ id: userId, iat: ACCESS_TOKEN_EXPIRES }, SECRET),
       refreshToken: refreshToken.value
     };
   },
