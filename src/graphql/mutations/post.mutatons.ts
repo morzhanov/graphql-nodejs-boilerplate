@@ -6,7 +6,8 @@ import { PostService } from "../../services/post.service";
 export const AddPostMutation = {
   type: PostType,
   args: { content: { type: new GraphQLNonNull(GraphQLString) } },
-  resolve: async (value: any, attrs: typeof PostType) => {
+  resolve: async (value: any, attrs: typeof PostType, context: any) => {
+    attrs.owner = context.user.id;
     return await PostService.createPost(attrs);
   }
 };
