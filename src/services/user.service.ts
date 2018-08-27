@@ -66,16 +66,5 @@ export const UserService = {
         }
       );
     });
-  },
-  createToken: (user: User): string => {
-    return jwt.sign(
-      {
-        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
-        data: {
-          id: user.id
-        }
-      },
-      SECRET
-    );
   }
 };

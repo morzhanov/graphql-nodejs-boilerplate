@@ -22,7 +22,7 @@ export class User {
   @Column("text")
   email: string;
 
-  @Column("text")
+  @Column({ type: "text", readonly: true })
   password: string;
 
   @BeforeInsert()

@@ -10,10 +10,14 @@ export const GraphQLMiddleware = async (req: Request, res: Response) => {
   let user = {};
 
   if (accessToken) {
-    const { id } = await AuthService.verifyToken(accessToken);
-    user = await UserService.getUser(id);
-    if (user) {
-      authorized = true;
+    try {
+      const { id } = await AuthService.verifyToken(accessToken);
+      user = await UserService.getUser(id);
+      if (user) {
+        authorized = true;
+      }
+    } catch (e) {
+      authorized = false;
     }
   }
 

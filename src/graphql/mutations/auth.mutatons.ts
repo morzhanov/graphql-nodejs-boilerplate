@@ -14,8 +14,13 @@ export const LoginMutation = {
   resolve: async (value: any, attrs: typeof LoginType, context: any) => {
     const { email, password } = attrs;
     const user = await UserService.getUserByEmail(email);
-    if (!user || !compareSync(password, user.password)) {
+    if (!user) {
       const error = new Error("User not found");
+      return error;
+    }
+
+    if (!compareSync(password, user.password)) {
+      const error = new Error("Wrong email or password");
       return error;
     }
 
