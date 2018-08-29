@@ -38,7 +38,6 @@ const PrivateMutationsType = new GraphQLObjectType({
   name: "PrivateMutationsType",
   fields: {
     logout: LogoutMutation,
-    refreshToken: RefreshTokenMutation,
     addPost: AddPostMutation,
     deleteUser: DeleteUserMutation,
     deletePost: DeletePostMutation,
@@ -51,7 +50,8 @@ const AuthMutationsType = new GraphQLObjectType({
   name: "AuthMutationsType",
   fields: {
     register: RegisterMutation,
-    login: LoginMutation
+    login: LoginMutation,
+    refreshToken: RefreshTokenMutation
   }
 });
 

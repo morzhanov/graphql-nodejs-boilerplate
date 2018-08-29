@@ -74,11 +74,10 @@ export const LogoutMutation = {
 export const RefreshTokenMutation = {
   type: AuthResponseType,
   args: {
-    email: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
+    refreshToken: { type: new GraphQLNonNull(GraphQLString) }
   },
   resolve: async (value: any, attrs: any, context: any) => {
-    const refToken = context.refreshToken;
+    const refToken = attrs.refreshToken;
     const dbToken = await AuthService.getRefreshToken(refToken);
     if (!dbToken) {
       const error = new Error("Unauthorized");

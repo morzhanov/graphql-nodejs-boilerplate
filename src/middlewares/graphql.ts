@@ -17,6 +17,7 @@ export const GraphQLMiddleware = async (req: Request, res: Response) => {
         authorized = true;
       }
     } catch (e) {
+      console.log(e);
       authorized = false;
     }
   }

@@ -12,7 +12,9 @@ export const AuthService = {
       .insert(refreshToken);
 
     return {
-      accessToken: jwt.sign({ id: userId, iat: ACCESS_TOKEN_EXPIRES }, SECRET),
+      accessToken: jwt.sign({ id: userId }, SECRET, {
+        expiresIn: ACCESS_TOKEN_EXPIRES
+      }),
       refreshToken: refreshToken.value
     };
   },
