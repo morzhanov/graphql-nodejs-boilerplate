@@ -12,7 +12,7 @@ export const UpdateUserMutation = {
     email: { type: new GraphQLNonNull(GraphQLString) }
   },
   resolve: async (value: any, attrs: typeof UserType, context: any) => {
-    // check is user with this email already exists if user want to change email
+    // check is user with this email already exists
     if (attrs.email !== context.user.email) {
       const dbUser: User = await UserService.getUserByEmail(attrs.email);
 

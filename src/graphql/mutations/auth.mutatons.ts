@@ -11,7 +11,7 @@ export const LoginMutation = {
     email: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve: async (value: any, attrs: typeof LoginType, context: any) => {
+  resolve: async (_: any, attrs: typeof LoginType) => {
     const { email, password } = attrs;
     const user = await UserService.getUserByEmail(email);
     if (!user) {
@@ -39,7 +39,7 @@ export const RegisterMutation = {
     email: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve: async (value: any, attrs: typeof RegisterType, context: any) => {
+  resolve: async (_: any, attrs: typeof RegisterType) => {
     const { email, password } = attrs;
     const user = await UserService.getUserByEmail(email);
     if (user) {
@@ -76,7 +76,7 @@ export const RefreshTokenMutation = {
   args: {
     refreshToken: { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve: async (value: any, attrs: any, context: any) => {
+  resolve: async (_: any, attrs: any) => {
     const refToken = attrs.refreshToken;
     const dbToken = await AuthService.getRefreshToken(refToken);
     if (!dbToken) {
