@@ -10,7 +10,7 @@ This is a backend part of GraphQL boilerplate projects. You can also review <a h
 
 Use these steps to install project
 
-## Postgres DB
+### Postgres DB
 
 This boilerplate based on PostgreSQL database, but you can easily change it to any other preferable database. Project uses TypeORM as ORM for your database.
 
