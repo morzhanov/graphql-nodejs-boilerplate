@@ -4,7 +4,7 @@ GraphQL NodeJS Boilerplate allows you to start new server side web project from 
 
 Also this boilerplate contains babel configuration to use all lates ES7+ features.
 
-This is a backend part of GraphQL boilerplate projects. You can also review <a href="link-to-react">graphql-react-boilerplate</a> to see how things works on the client side.
+This is a backend part of GraphQL boilerplate projects. You can also review <a href="https://github.com/VladMorzhanov/graphql-react-boilerplate">graphql-react-boilerplate</a> to see how things works on the client side.
 
 ## Installation
 
