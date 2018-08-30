@@ -4,7 +4,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
-    "target": "es6",
+    "target": "es2015",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
@@ -26,13 +26,8 @@
       "esnext.asynciterable"
     ],
     "paths": {
-      "*": [
-        "node_modules/*",
-        "src/types/*"
-      ]
+      "*": ["node_modules/*", "src/types/*"]
     }
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

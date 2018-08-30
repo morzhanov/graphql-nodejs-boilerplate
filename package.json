@@ -4,7 +4,8 @@
   "description": "GraphQL application boilerplate with NodeJS and Typescript support.",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "serve": "node ./dist"
+    "serve": "node ./dist",
+    "build": "tsc"
   },
   "keywords": [
     "graphql",
