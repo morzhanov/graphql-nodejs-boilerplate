@@ -40,6 +40,16 @@ To build project run: `yarn run build`
 
 To serve built files run: `yarn run serve`
 
+# Usage
+
+In this project you can review how could be designed and developed such basic parts of an application:
+
+- Authentication using JWT based on GraphQL mutations.
+- All API calls are secured with access token. You can manage live time of access token and refresh it with additional refresh token.
+- GraphQL mutations and queries using expres-graphql
+- All parts of application developed using Typescript, you can review how to use GraphQL with NodeJS and Typescript.
+- Project uses TypeOrm ORM to easily manage Postgress database from your NodeJS application.
+
 # Main Technologies and libraries
 
 - NodeJS
