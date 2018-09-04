@@ -4,12 +4,6 @@
 
 GraphQL NodeJS Boilerplate allows you to start new server side web project from scratch using NodeJS, Express, GraphQL and Typescript.
 
-<a href="https://nodejs.org/en/">NodeJS</a>
-<a href="https://graphql.org/">GraphQL</a>
-<a href="https://www.postgresql.org/">PostgreSQL</a>
-<a href="https://github.com/typeorm/typeorm">TypeORM</a>
-<a href="https://expressjs.com/">ExpressJS</a>
-
 Also this boilerplate contains babel configuration to use all lates ES7+ features.
 
 This is a backend part of GraphQL boilerplate projects. You can also review <a href="https://github.com/VladMorzhanov/graphql-react-boilerplate">graphql-react-boilerplate</a> to see how things works on the client side.
@@ -58,14 +52,14 @@ In this project you can review how could be designed and developed such basic pa
 
 # Main Technologies and libraries
 
-- NodeJS
-- GraphQL
-- Express
-- Typescript
-- TypeORM
-- Postgres
-- JWT
-- Lodash
+- <a href="https://nodejs.org/en/">NodeJS</a>
+- <a href="https://graphql.org/">GraphQL</a>
+- <a href="https://www.postgresql.org/">PostgreSQL</a>
+- <a href="https://github.com/typeorm/typeorm">TypeORM</a>
+- <a href="https://expressjs.com/">ExpressJS</a>
+- <a href="https://www.typescriptlang.org/">Typescript</a>
+- <a href="https://jwt.io/">JWT</a>
+- <a href="https://lodash.com/">Lodash</a>
 
 ## Contributing
 
