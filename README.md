@@ -1,4 +1,4 @@
-# graphql-nodejs-boilerplate
+# GraphQL + NodeJS Boilerplate
 
 <img src="https://i.imgur.com/B7x0zvj.png"/>
 
