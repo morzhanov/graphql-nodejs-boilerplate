@@ -40,7 +40,7 @@ To build project run: `yarn run build`
 
 To serve built files run: `yarn run serve`
 
-# Usage
+## Usage
 
 In this project you can review how could be designed and developed such basic parts of an application:
 
@@ -50,7 +50,7 @@ In this project you can review how could be designed and developed such basic pa
 - All parts of application developed using Typescript, you can review how to use GraphQL with NodeJS and Typescript.
 - Project uses TypeOrm ORM to easily manage Postgress database from your NodeJS application.
 
-# Main technologies and libraries
+## Main technologies and libraries
 
 - <a href="https://nodejs.org/en/">NodeJS</a>
 - <a href="https://graphql.org/">GraphQL</a>
