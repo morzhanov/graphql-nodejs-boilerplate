@@ -1,4 +1,4 @@
-import ExpressGraphQL from "express-graphql";
+import expressGraphQL from "express-graphql";
 import { Request, Response } from "express";
 import { PrivateSchema, AuthSchema } from "../graphql";
 import { AuthService } from "../services/auth.service";
@@ -24,7 +24,7 @@ export const GraphQLMiddleware = async (req: Request, res: Response) => {
   const schema = authorized ? PrivateSchema : AuthSchema;
 
   const graphql = (user: any) =>
-    ExpressGraphQL({
+    expressGraphQL({
       schema: schema,
       graphiql: true,
       context: {
@@ -32,7 +32,7 @@ export const GraphQLMiddleware = async (req: Request, res: Response) => {
         response: res,
         user: user || null
       }
-    })(req, res);
+    } as expressGraphQL.Options)(req, res);
 
   graphql(user);
 };
